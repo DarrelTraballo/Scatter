@@ -41,5 +41,10 @@ namespace ReplayValue
         {
             selectedCircle.SetActive(isVisible);
         }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            shouldMove = false;
+        }
     }
 }

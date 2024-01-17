@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5473226505411452664}
   - component: {fileID: 4252174382483758756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Selected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8058306821758652390}
   - component: {fileID: 5728221021442932081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,8 @@ GameObject:
   - component: {fileID: 5615358682828159032}
   - component: {fileID: 6029478203160784129}
   - component: {fileID: 5156935442488897511}
-  m_Layer: 0
+  - component: {fileID: 1399903506264009752}
+  m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,3 +264,30 @@ MonoBehaviour:
   moveSpeed: 50
   targetPos: {x: 0, y: 0, z: 0}
   shouldMove: 0
+--- !u!50 &1399903506264009752
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494144587447345559}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
