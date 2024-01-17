@@ -70,50 +70,13 @@ namespace ReplayValue
             {
                 Vector3 targetPosition = UtilsClass.GetMouseWorldPosition();
 
-                List<Vector3> targetPositionList = GetPositionListAround(targetPosition, 10f, selectedUnits.Count);
-
-                List<int> positionIndices = new List<int>();
-                for (int i = 0; i < selectedUnits.Count - 1; i++)
-                {
-                    positionIndices.Add(i);
-                }
-
                 foreach (var unit in selectedUnits)
                 {
-                    // int randomPositionIndex = (int)Random.Range(1f, positionIndices.Count);
-                    // positionIndices.Remove(randomPositionIndex);
-
-                    // unit.SetTargetPosition(targetPositionList[randomPositionIndex]);
-
                     Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * 10f;
 
                     unit.SetTargetPosition(randomPos);
-
-
-                    // targetPosIndex = (targetPosIndex + 1) % targetPositionList.Count;
                 }
             }
-        }
-
-        private List<Vector3> GetPositionListAround(Vector3 startPos, float distance, int positionCount)
-        {
-            List<Vector3> positionList = new List<Vector3>();
-
-            for (int i = 0; i < positionCount; i++)
-            {
-                float angle = i * (360f / positionCount);
-                Vector3 dir = ApplyRotationToVector(new Vector3(1, 0), angle);
-
-                Vector3 position = startPos + dir * distance;
-                positionList.Add(position);
-            }
-
-            return positionList;
-        }
-
-        private Vector3 ApplyRotationToVector(Vector3 vector, float angle)
-        {
-            return Quaternion.Euler(0, 0, angle) * vector;
         }
     }
 }
