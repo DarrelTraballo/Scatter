@@ -43,13 +43,13 @@ namespace ReplayValue
             float panSpeed = basePanSpeed * childCamera.orthographicSize;
 
             // Camera movement using the mouse
-            if (Input.GetMouseButtonDown(1))  // Right mouse button
+            if (Input.GetMouseButtonDown(0))  // Right mouse button
             {
                 isDragging = true;
                 lastMousePosition = Input.mousePosition;
             }
 
-            else if (Input.GetMouseButtonUp(1))
+            else if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
             }
