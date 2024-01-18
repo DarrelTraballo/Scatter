@@ -223,9 +223,10 @@ GameObject:
   - component: {fileID: 86922534}
   - component: {fileID: 86922533}
   - component: {fileID: 86922535}
+  - component: {fileID: 86922537}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: SquadViewRadius
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,6 +343,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &86922537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86922532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ed80e5b18d0354ab5be94007710dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 50
 --- !u!4 &136320620 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5615358682828159032, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
@@ -357,7 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 136500440}
   m_Layer: 0
-  m_Name: Units
+  m_Name: Friendly Units
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -919,6 +933,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &853499728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853499729}
+  m_Layer: 0
+  m_Name: ===== UNITS =====
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853499729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853499728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1091834679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1230,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 550, y: 50}
   m_EdgeRadius: 0
+--- !u!1 &1361678194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1361678195}
+  - component: {fileID: 1361678196}
+  m_Layer: 0
+  m_Name: FogManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1361678195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361678194}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1361678196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361678194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e2030abcfd674bb2bd27966c5ab71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fogTilePrefab: {fileID: 6691111821035717816, guid: e67b7ad3ef3bb854ab4e6d5c187552c8, type: 3}
+  fogGridSize: 30
+  groundPlaneTransform: {fileID: 848277172}
 --- !u!1001 &1381157726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1489,7 +1581,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
   m_Color: {r: 0.10980392, g: 0.6784314, b: 0, a: 0.5529412}
   m_FlipX: 0
@@ -1714,10 +1806,12 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1596556544}
   - {fileID: 513453257}
+  - {fileID: 1361678195}
   - {fileID: 1091834680}
   - {fileID: 12378350}
   - {fileID: 354550338}
   - {fileID: 848277172}
   - {fileID: 86922534}
-  - {fileID: 136500440}
   - {fileID: 772070611}
+  - {fileID: 853499729}
+  - {fileID: 136500440}

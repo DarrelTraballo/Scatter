@@ -7,6 +7,7 @@ namespace ReplayValue
     public class UnitController : MonoBehaviour
     {
         [SerializeField] private Transform selectionAreaTransform;
+        [SerializeField] private float circleRadius = 15f;
 
         private Vector3 startPos;
         private List<Unit> selectedUnits;
@@ -19,13 +20,13 @@ namespace ReplayValue
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 selectionAreaTransform.gameObject.SetActive(true);
                 startPos = UtilsClass.GetMouseWorldPosition();
             }
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(0))
             {
                 Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
 
@@ -44,7 +45,7 @@ namespace ReplayValue
                 selectionAreaTransform.localScale = upperRight - lowerLeft;
             }
 
-            if (Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(0))
             {
                 Collider2D[] foundColliders = Physics2D.OverlapAreaAll(startPos, UtilsClass.GetMouseWorldPosition());
                 selectionAreaTransform.gameObject.SetActive(false);
@@ -66,13 +67,13 @@ namespace ReplayValue
                 }
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 Vector3 targetPosition = UtilsClass.GetMouseWorldPosition();
 
                 foreach (var unit in selectedUnits)
                 {
-                    Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * 10f;
+                    Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * circleRadius;
 
                     unit.SetTargetPosition(randomPos);
                 }
