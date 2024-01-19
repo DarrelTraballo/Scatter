@@ -7,11 +7,17 @@
     - [ ] Squad
         - [x] Squad Controller
         - [ ] Attack Mechanic
+            - when click on an enemy unit, selected units head towards selected enemy unit and attacks
         - [ ] Squad AI
+        - [ ] Infect Mechanic
     - [ ] Zombies
         - [ ] Zombie AI
         - [ ] Attack Mechanic
+            - View Distance
+            - if Squad Unit enters view distance, zombie locks on to first Squad unit it sees
         - [ ] Infect Mechanic
+        - [ ] Hoards
+            - A group of 4-5 zombies (numbers subject to balance) 
 
 - [x] Camera Controller
 - [x] Fog Of War
@@ -22,13 +28,29 @@
         - [ ] Guns
     - [ ] Survival Items
         - [ ] Scraps
+            - [ ] needed for weapons
         - [ ] Food
         - [ ] Med Kit
         - [ ] Map
-            - Finding the map makes fog not reappear
+            - Rerveals all buildings present in the area
+            - Finding the map makes fog not reappear during the day
         - [ ] Radio
+        - [ ] Flashlight
+        - [ ] 
 
 - [ ] Infect Mechanic
+    - [ ] Squad
+        - Infected % bar instead of health bar
+        - Has a % chance of getting infected when attacked by zombie
+        - can
+    - [ ] Zombies
+        - Health Bar
+        - Attacking Squad units increases their Infected % bar
+
+- [ ] Day/Night Cycle
+    - [ ] Fog Of War
+        - [ ] Day
+            -   
 
 
 choice mechanic > have consequences
