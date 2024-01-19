@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ReplayValue
 {
+    // TODO: base class, separate squad shit to their own class, inheriting this class
     public class Unit : MonoBehaviour, IFogRevealer
     {
         [SerializeField] private float moveSpeed = 5f;
@@ -54,15 +55,18 @@ namespace ReplayValue
 
         private void OnEnable()
         {
-            FogManager.Instance.RegisterFogRevealer(this);
+            StartCoroutine(WaitForSingleton());
         }
 
         private void OnDisable()
         {
-            if (FogManager.Instance != null)
-            {
-                FogManager.Instance.UnregisterFogRevealer(this);
-            }
+            FogManager.Instance?.UnregisterFogRevealer(this);
+        }
+
+        private IEnumerator WaitForSingleton()
+        {
+            yield return new WaitUntil(() => FogManager.Instance != null);
+            FogManager.Instance?.RegisterFogRevealer(this);
         }
 
 #if UNITY_EDITOR

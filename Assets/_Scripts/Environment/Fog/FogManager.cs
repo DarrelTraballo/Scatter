@@ -3,34 +3,22 @@ using UnityEngine;
 
 namespace ReplayValue
 {
-    public class FogManager : Singleton<FogManager>
+    public class FogManager : MonoBehaviour
     {
-        // public static FogManager Instance
-        // {
-        //     get
-        //     {
-        //         if (_instance == null && !_isApplicationQuitting)
-        //         {
-        //             _instance = FindObjectOfType<FogManager>();
-        //             if (_instance == null)
-        //             {
-        //                 GameObject fogManagerObj = new GameObject("FogManager");
-        //                 _instance = fogManagerObj.AddComponent<FogManager>();
-        //             }
-        //         }
-        //         return _instance;
-        //     }
-        //     private set
-        //     {
-        //         _instance = value;
-        //     }
-        // }
-        // private static FogManager _instance;
-        // private static bool _isApplicationQuitting = false;
-        // public static bool IsApplicationQuitting
-        // {
-        //     get { return _isApplicationQuitting; }
-        // }
+        public static FogManager Instance { get; private set; }
+        #region Singleton
+        private FogManager() { }
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+                Destroy(this);
+            else
+                Instance = this;
+
+            GenerateFog();
+
+        }
+        #endregion
 
         [SerializeField] private FogTile fogTilePrefab;
         [SerializeField] private float fogGridSize = 50f;
@@ -43,12 +31,6 @@ namespace ReplayValue
         private void Update()
         {
             UpdateFog();
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            GenerateFog();
         }
 
         private void GenerateFog()

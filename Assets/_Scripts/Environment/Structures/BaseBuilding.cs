@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace ReplayValue
@@ -11,15 +12,18 @@ namespace ReplayValue
 
         private void OnEnable()
         {
-            FogManager.Instance.RegisterFogRevealer(this);
+            StartCoroutine(WaitForSingleton());
         }
 
         private void OnDisable()
         {
-            if (FogManager.Instance != null)
-            {
-                FogManager.Instance.UnregisterFogRevealer(this);
-            }
+            FogManager.Instance?.UnregisterFogRevealer(this);
+        }
+
+        private IEnumerator WaitForSingleton()
+        {
+            yield return new WaitUntil(() => FogManager.Instance != null);
+            FogManager.Instance?.RegisterFogRevealer(this);
         }
 
 #if UNITY_EDITOR
