@@ -11,13 +11,13 @@
         - [ ] Squad AI
         - [ ] Infect Mechanic
     - [ ] Zombies
-        - [ ] Zombie AI
+        - [x] Zombie AI
         - [ ] Attack Mechanic
             - View Distance
             - if Squad Unit enters view distance, zombie locks on to first Squad unit it sees
         - [ ] Infect Mechanic
         - [ ] Hoards
-            - A group of 4-5 zombies (numbers subject to balance) 
+            - A group of 4-5 zombies (numbers subject to balance)
 
 - [x] Camera Controller
 - [x] Fog Of War
@@ -36,7 +36,7 @@
             - Finding the map makes fog not reappear during the day
         - [ ] Radio
         - [ ] Flashlight
-        - [ ] 
+        - [ ]
 
 - [ ] Infect Mechanic
     - [ ] Squad
@@ -50,7 +50,7 @@
 - [ ] Day/Night Cycle
     - [ ] Fog Of War
         - [ ] Day
-            -   
+            -
 
 
 choice mechanic > have consequences
