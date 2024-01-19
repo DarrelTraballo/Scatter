@@ -20,6 +20,9 @@ namespace ReplayValue
         }
         #endregion
 
+        [Header("Debug")]
+        [SerializeField] private bool isDebugMode = false;
+
         [SerializeField] private FogTile fogTilePrefab;
         [SerializeField] private float fogGridSize = 50f;
 
@@ -47,10 +50,17 @@ namespace ReplayValue
                     float posY = y * cellSizeY + (cellSizeY / 2) - (groundPlaneTransform.localScale.y / 2);
 
                     Vector3 position = new Vector3(posX, posY, 0);
-                    var fogTile = Instantiate(fogTilePrefab, position, Quaternion.identity, transform);
+                    FogTile fogTile = Instantiate(fogTilePrefab, position, Quaternion.identity, transform);
                     fogTile.transform.localScale = new Vector3(cellSizeX, cellSizeY, 1);
 
                     fogTiles.Add(fogTile);
+
+                    if (isDebugMode)
+                    {
+                        var fogTileColor = fogTile.GetComponentInChildren<SpriteRenderer>().color;
+                        fogTileColor.a = 0.5f;
+                        fogTile.GetComponentInChildren<SpriteRenderer>().color = fogTileColor;
+                    }
                 }
             }
         }

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace ReplayValue
 {
-    public class UnitController : MonoBehaviour
+    public class SquadController : MonoBehaviour
     {
         [SerializeField] private Transform selectionAreaTransform;
-        [SerializeField] private float circleRadius = 15f;
+        [SerializeField] private float circleRadius;
 
         private Vector3 startPos;
-        private List<Unit> selectedUnits;
+        private List<SquadUnit> selectedSquadUnits;
 
         private void Awake()
         {
-            selectedUnits = new List<Unit>();
+            selectedSquadUnits = new List<SquadUnit>();
             selectionAreaTransform.gameObject.SetActive(false);
         }
 
@@ -50,28 +50,31 @@ namespace ReplayValue
                 Collider2D[] foundColliders = Physics2D.OverlapAreaAll(startPos, UtilsClass.GetMouseWorldPosition());
                 selectionAreaTransform.gameObject.SetActive(false);
 
-                foreach (var unit in selectedUnits)
+                foreach (var unit in selectedSquadUnits)
                 {
                     unit.SetSelectedVisible(false);
                 }
 
-                selectedUnits.Clear();
+                selectedSquadUnits.Clear();
 
                 foreach (var foundCollider in foundColliders)
                 {
-                    if (foundCollider.TryGetComponent(out Unit unit))
+                    if (foundCollider.TryGetComponent(out SquadUnit unit))
                     {
-                        selectedUnits.Add(unit);
+                        selectedSquadUnits.Add(unit);
                         unit.SetSelectedVisible(true);
                     }
                 }
+
+                circleRadius = Mathf.Clamp(selectedSquadUnits.Count * 2 + 1, 5f, 15f);
             }
 
             if (Input.GetMouseButtonDown(1))
             {
                 Vector3 targetPosition = UtilsClass.GetMouseWorldPosition();
 
-                foreach (var unit in selectedUnits)
+
+                foreach (var unit in selectedSquadUnits)
                 {
                     Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * circleRadius;
 
