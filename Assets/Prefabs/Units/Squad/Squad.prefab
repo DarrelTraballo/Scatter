@@ -96,4 +96,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   viewDistance: 25
+  lockedUnit: {fileID: 0}
   shouldMove: 0

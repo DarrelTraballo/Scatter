@@ -10,6 +10,9 @@ namespace ReplayValue
         [SerializeField] protected float moveSpeed = 5f;
         public float viewDistance = 20f;
 
+        protected CircleCollider2D viewCollider;
+        [SerializeField] protected Unit lockedUnit;
+
         public bool shouldMove = false;
         protected Vector3 targetPos;
 
@@ -19,6 +22,15 @@ namespace ReplayValue
         {
             selectedCircle = transform.Find("Selected").gameObject;
             SetSelectedVisible(false);
+
+            if (transform.Find("ViewDistance").gameObject.TryGetComponent(out viewCollider))
+            {
+                viewCollider.radius = viewDistance;
+            }
+            else
+            {
+                Debug.LogError("CircleCollider2D component not found on the unit!");
+            }
         }
 
         protected virtual void Update()
@@ -42,15 +54,25 @@ namespace ReplayValue
             selectedCircle.SetActive(isVisible);
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D other)
+        protected void UpdateViewDistance(float newViewDistance)
         {
-            shouldMove = false;
+            viewDistance = newViewDistance;
+            if (viewCollider != null)
+            {
+                viewCollider.radius = viewDistance;
+            }
+        }
+
+        protected void Attack()
+        {
+
         }
 
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmosSelected()
         {
             DrawViewDistance();
+            DrawLockedTarget();
         }
 
         private void DrawViewDistance()
@@ -58,6 +80,15 @@ namespace ReplayValue
             Gizmos.color = Color.white;
 
             Gizmos.DrawWireSphere(transform.position, viewDistance);
+        }
+        private void DrawLockedTarget()
+        {
+            Gizmos.color = Color.black;
+
+            if (lockedUnit != null)
+            {
+                Gizmos.DrawLine(transform.position, lockedUnit.transform.position);
+            }
         }
 #endif
     }

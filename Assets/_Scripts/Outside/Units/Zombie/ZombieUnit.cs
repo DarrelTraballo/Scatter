@@ -6,31 +6,20 @@ namespace ReplayValue
 {
     public class ZombieUnit : Unit
     {
-        [SerializeField] private SquadUnit lockedSquadUnit;
-        private CircleCollider2D viewCollider;
+        // [SerializeField] private SquadUnit lockedUnit;
 
         protected override void Awake()
         {
             base.Awake();
-
-            viewCollider = GetComponent<CircleCollider2D>();
-            if (viewCollider != null)
-            {
-                viewCollider.radius = viewDistance;
-            }
-            else
-            {
-                Debug.LogError("CircleCollider2D component not found on the zombie unit!");
-            }
         }
 
         protected override void Update()
         {
             base.Update();
 
-            if (lockedSquadUnit != null)
+            if (lockedUnit != null)
             {
-                SetTargetPosition(lockedSquadUnit.transform.position);
+                SetTargetPosition(lockedUnit.transform.position);
                 shouldMove = true;
             }
             else
@@ -39,22 +28,13 @@ namespace ReplayValue
             }
         }
 
-        private void UpdateViewDistance(float newViewDistance)
-        {
-            viewDistance = newViewDistance;
-            if (viewCollider != null)
-            {
-                viewCollider.radius = viewDistance;
-            }
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (lockedSquadUnit == null)
+            if (lockedUnit == null)
             {
                 if (other.TryGetComponent<SquadUnit>(out var squadUnit))
                 {
-                    lockedSquadUnit = squadUnit;
+                    lockedUnit = squadUnit;
                     SetTargetPosition(squadUnit.transform.position);
                 }
             }
@@ -62,29 +42,19 @@ namespace ReplayValue
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (lockedSquadUnit != null && other.gameObject == lockedSquadUnit.gameObject)
+            if (lockedUnit != null && other.gameObject == lockedUnit.gameObject)
             {
-                lockedSquadUnit = null;
+                lockedUnit = null;
                 shouldMove = false;
             }
         }
 
-#if UNITY_EDITOR
-        protected override void OnDrawGizmosSelected()
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            base.OnDrawGizmosSelected();
-            DrawLockedTarget();
-        }
-
-        private void DrawLockedTarget()
-        {
-            Gizmos.color = Color.black;
-
-            if (lockedSquadUnit != null)
+            if (other.gameObject.TryGetComponent(out SquadUnit squadUnit))
             {
-                Gizmos.DrawLine(transform.position, lockedSquadUnit.transform.position);
+                Debug.Log($"Hit {squadUnit.name}!");
             }
         }
-#endif
     }
 }

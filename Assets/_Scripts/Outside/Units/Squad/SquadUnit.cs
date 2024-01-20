@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ReplayValue
@@ -14,20 +13,24 @@ namespace ReplayValue
             base.Awake();
         }
 
-        protected override void Update()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (shouldMove) MoveTo(targetPos);
+            if (lockedUnit == null)
+            {
+                if (other.TryGetComponent<ZombieUnit>(out var zombieUnit))
+                {
+                    lockedUnit = zombieUnit;
+                    Debug.Log($"Locked to {zombieUnit.name}");
+                }
+            }
         }
 
-        public override void SetTargetPosition(Vector3 newTargetPos)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            targetPos = newTargetPos;
-            shouldMove = true;
-        }
-
-        protected override void OnCollisionEnter2D(Collision2D other)
-        {
-            shouldMove = false;
+            if (lockedUnit != null && other.gameObject == lockedUnit.gameObject)
+            {
+                lockedUnit = null;
+            }
         }
 
         private void OnEnable()

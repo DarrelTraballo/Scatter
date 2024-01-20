@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 86922535}
   m_Layer: 0
   m_Name: Base
-  m_TagString: SquadViewRadius
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -517,8 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd06524d3d3fae489d65b05980e9d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionAreaTransform: {fileID: 12378350}
   circleRadius: 0
+  selectionAreaTransform: {fileID: 12378350}
 --- !u!4 &513453257
 Transform:
   m_ObjectHideFlags: 0
