@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2367324853802303943, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2576275964072139255, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -94,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966818904243d45469c2e9e3c7045ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 20
   viewDistance: 25
   lockedUnit: {fileID: 0}
   shouldMove: 0

@@ -20,7 +20,7 @@ namespace ReplayValue
                 if (other.TryGetComponent<ZombieUnit>(out var zombieUnit))
                 {
                     lockedUnit = zombieUnit;
-                    Debug.Log($"Locked to {zombieUnit.name}");
+                    // Debug.Log($"Locked to {zombieUnit.name}");
                 }
             }
         }

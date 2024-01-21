@@ -63,7 +63,7 @@ namespace ReplayValue
             }
         }
 
-        protected void Attack()
+        public virtual void Attack(Unit unit)
         {
 
         }

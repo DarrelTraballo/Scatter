@@ -18,8 +18,8 @@ TagManager:
   - Squad
   - Zombie
   - Unit
-  - UnitViewRadius
-  - 
+  - Object
+  - Building
   - 
   - 
   - 
@@ -42,6 +42,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Environment
+    uniqueID: 4047334095
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Buildings
+    uniqueID: 3358064801
+    locked: 0
+  - name: Objects
+    uniqueID: 482340183
+    locked: 0
+  - name: Units
+    uniqueID: 138933345
+    locked: 0
+  - name: Fog
+    uniqueID: 3478432913
+    locked: 0
+  - name: UI
+    uniqueID: 2319050719
     locked: 0
