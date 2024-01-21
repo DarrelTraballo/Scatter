@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2367324853802303943, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2576275964072139255, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -43,6 +47,10 @@ PrefabInstance:
     - target: {fileID: 4252174382483758756, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882461703768130943, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5615358682828159032, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -130,3 +138,17 @@ MonoBehaviour:
   viewDistance: 15
   lockedUnit: {fileID: 0}
   shouldMove: 0
+  contactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1600
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

@@ -8,6 +8,9 @@ namespace ReplayValue
     {
         // [SerializeField] private SquadUnit lockedUnit;
 
+        public RaycastHit2D[] hits = new RaycastHit2D[5];
+        public ContactFilter2D contactFilter;
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,12 +22,61 @@ namespace ReplayValue
 
             if (lockedUnit != null)
             {
-                SetTargetPosition(lockedUnit.transform.position);
-                shouldMove = true;
+                if (CanZombieStillSee())
+                {
+                    SetTargetPosition(lockedUnit.transform.position);
+                    shouldMove = true;
+                }
+                else
+                {
+                    shouldMove = false;
+                }
             }
             else
             {
                 shouldMove = false;
+            }
+        }
+
+        public override void Attack(Unit squadUnit)
+        {
+            Debug.Log($"Attacekd {squadUnit.name}!");
+        }
+
+        private bool CanZombieStillSee()
+        {
+            Vector2 direction = lockedUnit.transform.position - transform.position;
+            direction.Normalize();
+            float maxDistance = Vector3.Distance(transform.position, lockedUnit.transform.position);
+            int hitCount = Physics2D.Raycast(transform.position, direction, contactFilter, hits, maxDistance);
+
+            if (hitCount > 0)
+            {
+                RaycastHit2D hit = hits[0];
+                Debug.DrawRay(transform.position, direction * maxDistance, Color.green);
+
+                if (hit.transform == lockedUnit.transform)
+                {
+                    Debug.Log("Path to target is clear!");
+                    return true;
+                }
+                else
+                {
+                    if (hit.transform.TryGetComponent(out SquadUnit squadUnit))
+                    {
+                        Debug.Log($"Another Squad Unit {hit.collider.name}", hit.collider.gameObject);
+                        return true;
+                    }
+                    Debug.Log($"Path to target is blocked by {hit.collider.name}", hit.collider.gameObject);
+                    lockedUnit = null;
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("No object was hit by the raycast.");
+                Debug.DrawRay(transform.position, direction, Color.red);
+                return false;
             }
         }
 
@@ -44,8 +96,7 @@ namespace ReplayValue
         {
             if (lockedUnit != null && other.gameObject == lockedUnit.gameObject)
             {
-                lockedUnit = null;
-                shouldMove = false;
+
             }
         }
 
@@ -53,7 +104,7 @@ namespace ReplayValue
         {
             if (other.gameObject.TryGetComponent(out SquadUnit squadUnit))
             {
-                Debug.Log($"Hit {squadUnit.name}!");
+                Attack(squadUnit);
             }
         }
     }
