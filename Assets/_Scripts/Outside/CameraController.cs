@@ -9,6 +9,7 @@ namespace ReplayValue
         [Header("Camera Movement")]
         public float basePanSpeed;
         public float panLerpSpeed;
+        public float panBorderThickness;
 
         [Header("Camera Zoom")]
         public float zoomSpeed;
@@ -39,9 +40,44 @@ namespace ReplayValue
             // Clamp the orthographic size within the specified limits
             childCamera.orthographicSize = Mathf.Clamp(childCamera.orthographicSize, minZoom, maxZoom);
 
+            MoveCamearaUsingScreenEdges();
+        }
+
+        private void MoveCamearaUsingScreenEdges()
+        {
             // Adjust pan speed based on zoom level
             float panSpeed = basePanSpeed * childCamera.orthographicSize;
 
+            Vector3 moveDirection = Vector3.zero;
+
+            // If mouse is on top side of screen
+            if (Input.mousePosition.y >= Screen.height - panBorderThickness)
+            {
+                moveDirection += Vector3.up;
+            }
+
+            if (Input.mousePosition.y <= panBorderThickness)
+            {
+                moveDirection += Vector3.down;
+            }
+
+            if (Input.mousePosition.x >= Screen.width - panBorderThickness)
+            {
+                moveDirection += Vector3.right;
+            }
+
+            if (Input.mousePosition.x <= panBorderThickness)
+            {
+                moveDirection += Vector3.left;
+            }
+
+            transform.Translate(panSpeed * Time.deltaTime * moveDirection.normalized, Space.World);
+        }
+
+        private void MoveCameraWithMouseClick()
+        {
+            // Adjust pan speed based on zoom level
+            float panSpeed = basePanSpeed * childCamera.orthographicSize;
             // Camera movement using the mouse
             if (Input.GetMouseButtonDown(1))  // Right mouse button
             {
@@ -65,6 +101,7 @@ namespace ReplayValue
             }
 
             transform.position = Vector3.Lerp(transform.position, targetPosition, panLerpSpeed * Time.deltaTime);
+
         }
     }
 }
