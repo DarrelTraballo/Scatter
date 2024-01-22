@@ -8,20 +8,67 @@ namespace ReplayValue
         public float ViewDistance => viewDistance;
         public Vector3 Position => transform.position;
 
+        // TODO: change to weapon system
+        // ScriptableObjects!
+        [SerializeField] private float fireRate = 2f;
+        [SerializeField] private float fireCooldown = 0f;
+        [SerializeField] private float baseDamage = 5f;
+
+        // TODO: weapon projectiles
+
         protected override void Awake()
         {
             base.Awake();
+
+            currentHealth = 0;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected override void Update()
         {
-            if (lockedUnit == null)
+            base.Update();
+
+            if (lockedUnit == null) return;
+
+            SetTargetPosition(lockedUnit.transform.position);
+
+            float distance = Vector2.Distance(transform.position, lockedUnit.transform.position);
+
+            if (distance <= viewDistance - 2)
             {
-                if (other.TryGetComponent<ZombieUnit>(out var zombieUnit))
+                shouldMove = false;
+                // use weapon
+                if (fireCooldown <= 0)
                 {
-                    lockedUnit = zombieUnit;
-                    // Debug.Log($"Locked to {zombieUnit.name}");
+                    UseWeapon();
+                    fireCooldown = 1f / fireRate;
                 }
+
+            }
+            fireCooldown -= Time.deltaTime;
+        }
+
+        private void UseWeapon()
+        {
+            if (lockedUnit == null) return;
+            lockedUnit.TakeDamage(baseDamage);
+        }
+
+        public override void AttackUnit(Unit unit)
+        {
+            Debug.Log($"{name} is Attacking {unit.name}");
+            lockedUnit = unit;
+        }
+
+        public override void TakeDamage(float amount)
+        {
+            healthBarCanvas.enabled = true;
+            currentHealth += amount;
+
+            healthBar.fillAmount = currentHealth / totalHealth;
+
+            if (currentHealth >= totalHealth)
+            {
+                Debug.Log($"{name} got fully infected");
             }
         }
 

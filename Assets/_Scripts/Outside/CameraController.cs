@@ -10,19 +10,16 @@ namespace ReplayValue
         public float basePanSpeed;
         public float panLerpSpeed;
         public float panBorderThickness;
+        [Tooltip("For camera bounds")]
+        [SerializeField] private Transform groundPlaneTransform;
 
         [Header("Camera Zoom")]
         public float zoomSpeed;
         public float minZoom;
         public float maxZoom;
 
-        private bool isDragging;
-        private Vector3 lastMousePosition;
-        private Vector3 targetPosition;
-
         private void Awake()
         {
-            targetPosition = transform.position;
             childCamera = transform.GetChild(0).GetComponent<Camera>();
         }
 
@@ -71,37 +68,15 @@ namespace ReplayValue
                 moveDirection += Vector3.left;
             }
 
-            transform.Translate(panSpeed * Time.deltaTime * moveDirection.normalized, Space.World);
-        }
+            Vector3 newPos = transform.position + panSpeed * Time.deltaTime * moveDirection.normalized;
 
-        private void MoveCameraWithMouseClick()
-        {
-            // Adjust pan speed based on zoom level
-            float panSpeed = basePanSpeed * childCamera.orthographicSize;
-            // Camera movement using the mouse
-            if (Input.GetMouseButtonDown(1))  // Right mouse button
-            {
-                isDragging = true;
-                lastMousePosition = Input.mousePosition;
-            }
+            float boundsX = groundPlaneTransform.localScale.x / 2;
+            float boundsY = groundPlaneTransform.localScale.y / 2;
 
-            else if (Input.GetMouseButtonUp(1))
-            {
-                isDragging = false;
-            }
+            newPos.x = Mathf.Clamp(newPos.x, -boundsX, boundsX);
+            newPos.y = Mathf.Clamp(newPos.y, -boundsY, boundsY);
 
-            if (isDragging)
-            {
-                Vector3 deltaMouse = Input.mousePosition - lastMousePosition;
-                targetPosition += panSpeed * Time.deltaTime * -deltaMouse;
-
-                // Smoothly interpolate between the current position and the target position
-
-                lastMousePosition = Input.mousePosition;
-            }
-
-            transform.position = Vector3.Lerp(transform.position, targetPosition, panLerpSpeed * Time.deltaTime);
-
+            transform.position = newPos;
         }
     }
 }

@@ -1,27 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ReplayValue
 {
-    // TODO: base class, separate squad shit to their own class, inheriting this class
-    public class Unit : MonoBehaviour
+    public abstract class Unit : MonoBehaviour
     {
         [SerializeField] protected float moveSpeed = 5f;
         public float viewDistance = 20f;
 
         protected CircleCollider2D viewCollider;
-        [SerializeField] protected Unit lockedUnit;
+        [HideInInspector] public Unit lockedUnit;
 
-        public bool shouldMove = false;
+        [SerializeField] protected float totalHealth;
+        [SerializeField] protected float currentHealth;
+        [SerializeField] protected Image healthBar;
+        [SerializeField] protected Canvas healthBarCanvas;
+
+        [Space]
+        [Header("Raycasting shenanigans")]
+        protected RaycastHit2D[] hits = new RaycastHit2D[5];
+        [SerializeField] protected ContactFilter2D contactFilter;
+
+        protected bool shouldMove = false;
         protected Vector3 targetPos;
 
         protected GameObject selectedCircle;
+
+        public abstract void AttackUnit(Unit unit);
+        public abstract void TakeDamage(float amount);
 
         protected virtual void Awake()
         {
             selectedCircle = transform.Find("Selected").gameObject;
             SetSelectedVisible(false);
+
+            healthBarCanvas.enabled = false;
+            currentHealth = totalHealth;
 
             if (transform.Find("ViewDistance").gameObject.TryGetComponent(out viewCollider))
             {
@@ -54,6 +68,43 @@ namespace ReplayValue
             selectedCircle.SetActive(isVisible);
         }
 
+        protected bool CanUnitSeeTarget()
+        {
+            Vector2 direction = lockedUnit.transform.position - transform.position;
+            direction.Normalize();
+            float maxDistance = Vector3.Distance(transform.position, lockedUnit.transform.position);
+            int hitCount = Physics2D.Raycast(transform.position, direction, contactFilter, hits, maxDistance);
+
+            if (hitCount > 0)
+            {
+                RaycastHit2D hit = hits[0];
+                Debug.DrawRay(transform.position, direction * maxDistance, Color.green);
+
+                if (hit.transform == lockedUnit.transform)
+                {
+                    Debug.Log("Path to target is clear!");
+                    return true;
+                }
+                else
+                {
+                    if (hit.transform.TryGetComponent(out Unit unit))
+                    {
+                        Debug.Log($"Another Squad Unit {hit.collider.name}", hit.collider.gameObject);
+                        return true;
+                    }
+                    Debug.Log($"Path to target is blocked by {hit.collider.name}", hit.collider.gameObject);
+                    lockedUnit = null;
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("No object was hit by the raycast.");
+                Debug.DrawRay(transform.position, direction, Color.red);
+                return false;
+            }
+        }
+
         protected void UpdateViewDistance(float newViewDistance)
         {
             viewDistance = newViewDistance;
@@ -61,11 +112,6 @@ namespace ReplayValue
             {
                 viewCollider.radius = viewDistance;
             }
-        }
-
-        public virtual void Attack(Unit unit)
-        {
-
         }
 
 #if UNITY_EDITOR

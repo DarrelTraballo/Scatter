@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ReplayValue
 {
     public class ZombieUnit : Unit
     {
-        // [SerializeField] private SquadUnit lockedUnit;
-
-        public RaycastHit2D[] hits = new RaycastHit2D[5];
-        public ContactFilter2D contactFilter;
+        [SerializeField] private float baseDamage;
 
         protected override void Awake()
         {
@@ -20,63 +15,32 @@ namespace ReplayValue
         {
             base.Update();
 
-            if (lockedUnit != null)
-            {
-                if (CanZombieStillSee())
-                {
-                    SetTargetPosition(lockedUnit.transform.position);
-                    shouldMove = true;
-                }
-                else
-                {
-                    shouldMove = false;
-                }
-            }
-            else
+            if (lockedUnit == null)
             {
                 shouldMove = false;
+                return;
             }
+
+            SetTargetPosition(lockedUnit.transform.position);
+            shouldMove = CanUnitSeeTarget();
         }
 
-        public override void Attack(Unit squadUnit)
+        public override void AttackUnit(Unit squadUnit)
         {
-            Debug.Log($"Attacekd {squadUnit.name}!");
+            Debug.Log($"{name} Attacekd {squadUnit.name}!");
+            squadUnit.TakeDamage(baseDamage);
         }
 
-        private bool CanZombieStillSee()
+        public override void TakeDamage(float amount)
         {
-            Vector2 direction = lockedUnit.transform.position - transform.position;
-            direction.Normalize();
-            float maxDistance = Vector3.Distance(transform.position, lockedUnit.transform.position);
-            int hitCount = Physics2D.Raycast(transform.position, direction, contactFilter, hits, maxDistance);
+            healthBarCanvas.enabled = true;
+            currentHealth -= amount;
 
-            if (hitCount > 0)
-            {
-                RaycastHit2D hit = hits[0];
-                Debug.DrawRay(transform.position, direction * maxDistance, Color.green);
+            healthBar.fillAmount = currentHealth / totalHealth;
 
-                if (hit.transform == lockedUnit.transform)
-                {
-                    Debug.Log("Path to target is clear!");
-                    return true;
-                }
-                else
-                {
-                    if (hit.transform.TryGetComponent(out SquadUnit squadUnit))
-                    {
-                        Debug.Log($"Another Squad Unit {hit.collider.name}", hit.collider.gameObject);
-                        return true;
-                    }
-                    Debug.Log($"Path to target is blocked by {hit.collider.name}", hit.collider.gameObject);
-                    lockedUnit = null;
-                    return false;
-                }
-            }
-            else
+            if (currentHealth <= 0)
             {
-                Debug.Log("No object was hit by the raycast.");
-                Debug.DrawRay(transform.position, direction, Color.red);
-                return false;
+                Debug.Log($"Killed {name}");
             }
         }
 
@@ -84,19 +48,10 @@ namespace ReplayValue
         {
             if (lockedUnit == null)
             {
-                if (other.TryGetComponent<SquadUnit>(out var squadUnit))
+                if (other.TryGetComponent(out SquadUnit squadUnit))
                 {
                     lockedUnit = squadUnit;
-                    SetTargetPosition(squadUnit.transform.position);
                 }
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (lockedUnit != null && other.gameObject == lockedUnit.gameObject)
-            {
-
             }
         }
 
@@ -104,7 +59,7 @@ namespace ReplayValue
         {
             if (other.gameObject.TryGetComponent(out SquadUnit squadUnit))
             {
-                Attack(squadUnit);
+                AttackUnit(squadUnit);
             }
         }
     }

@@ -72,6 +72,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7648550441747017612, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16470589
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648550441747017612, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.87058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648550441747017612, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.38039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648550441747017612, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156407400333181493, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156407400333181493, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156407400333181493, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5156935442488897511, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
     m_RemovedGameObjects: []
@@ -81,6 +109,22 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: -8506838844311005717}
   m_SourcePrefab: {fileID: 100100000, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+--- !u!223 &3938538466819726700 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7252975679467216399, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+  m_PrefabInstance: {fileID: 5913157237231092579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4047290446874701039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7648550441747017612, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
+  m_PrefabInstance: {fileID: 5913157237231092579}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7093856404982178548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3494144587447345559, guid: 7112b5fbe5391984eba8ba0efe324f9f, type: 3}
@@ -101,4 +145,24 @@ MonoBehaviour:
   moveSpeed: 20
   viewDistance: 25
   lockedUnit: {fileID: 0}
-  shouldMove: 0
+  totalHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 4047290446874701039}
+  healthBarCanvas: {fileID: 3938538466819726700}
+  contactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 640
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  fireRate: 2
+  fireCooldown: 0
+  baseDamage: 5

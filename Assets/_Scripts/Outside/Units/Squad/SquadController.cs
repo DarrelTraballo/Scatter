@@ -36,9 +36,8 @@ namespace ReplayValue
 
             if (Input.GetMouseButtonUp(0))
             {
-                SelectMultipleUnits();
-
                 circleRadius = Mathf.Clamp(selectedSquadUnits.Count * 2 + 1, 5f, 15f);
+                SelectMultipleUnits();
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -49,9 +48,22 @@ namespace ReplayValue
                 if (selectedUnit != null)
                 {
                     Debug.Log($"Clicked {selectedUnit.name}");
+
+                    if (selectedUnit is ZombieUnit zombie)
+                    {
+                        foreach (var unit in selectedSquadUnits)
+                        {
+                            unit.AttackUnit(zombie);
+                        }
+                    }
                 }
                 else
                 {
+                    foreach (var unit in selectedSquadUnits)
+                    {
+                        unit.lockedUnit = null;
+                    }
+
                     HandleUnitMovement();
                 }
             }
