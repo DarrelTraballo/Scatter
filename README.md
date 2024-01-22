@@ -6,16 +6,14 @@
 - [ ] Units
     - [ ] Squad
         - [x] Squad Controller
-        - [ ] Attack Mechanic
+        - [x] Attack Mechanic
             - when click on an enemy unit, selected units head towards selected enemy unit and attacks
         - [ ] Squad AI
-        - [ ] Infect Mechanic
     - [ ] Zombies
         - [x] Zombie AI
-        - [ ] Attack Mechanic
+        - [x] Attack Mechanic
             - View Distance
             - if Squad Unit enters view distance, zombie locks on to first Squad unit it sees
-        - [ ] Infect Mechanic
         - [ ] Hoards
             - A group of 4-5 zombies (numbers subject to balance)
 
@@ -25,7 +23,12 @@
 
 - [ ] Items
     - [ ] Weapons
+        - [ ] ScriptableObjects
         - [ ] Guns
+            - [ ] Type1
+            - [ ] Type2
+            - [ ] Type3
+            - [ ] Type4
     - [ ] Survival Items
         - [ ] Scraps
             - [ ] needed for weapons
@@ -36,22 +39,23 @@
             - Finding the map makes fog not reappear during the day
         - [ ] Radio
         - [ ] Flashlight
-        - [ ]
 
 - [ ] Infect Mechanic
     - [ ] Squad
-        - Infected % bar instead of health bar
-        - Has a % chance of getting infected when attacked by zombie
-        - can
+        - [x] Infected % bar instead of health bar
+        - [x] Has a % chance of getting infected when attacked by zombie
+        - [ ] can
     - [ ] Zombies
-        - Health Bar
-        - Attacking Squad units increases their Infected % bar
+        - [x] Health Bar
+        - [x] Attacking Squad units increases their Infected % bar
 
 - [ ] Day/Night Cycle
     - [ ] Fog Of War
         - [ ] Day
-            -
+            - something happens here
 
+- [ ] UI and Menus
+    - [ ] xdd
 
 choice mechanic > have consequences
 can choose to pick scraps, kits, ingredients for food without going outside for shooter > risk of getting infected
