@@ -1,7 +1,7 @@
 # PirateSoftware GameJam 14
 ## Theme: It's Spreading
 
-## Functional Requirements:
+## MVP:
 ### Outside (RTS):
 - [ ] Units
     - [ ] Squad
