@@ -10,9 +10,12 @@ namespace ReplayValue
 
         // TODO: change to weapon system
         // ScriptableObjects!
+        [SerializeField] private float baseDamage = 5f;
         [SerializeField] private float fireRate = 2f;
         [SerializeField] private float fireCooldown = 0f;
-        [SerializeField] private float baseDamage = 5f;
+
+        [SerializeField] private WeaponData weaponData;
+        protected GameObject weaponHolder;
 
         // TODO: weapon projectiles
 
@@ -20,7 +23,11 @@ namespace ReplayValue
         {
             base.Awake();
 
+            weaponHolder = transform.Find("Weapon Holder").gameObject;
+
             currentHealth = 0;
+
+            GetWeapon();
         }
 
         protected override void Update()
@@ -33,8 +40,9 @@ namespace ReplayValue
 
             float distance = Vector2.Distance(transform.position, lockedUnit.transform.position);
 
-            if (distance <= viewDistance - 2)
+            if (distance <= attackRange - 1)
             {
+                PointWeaponAtTarget();
                 shouldMove = false;
                 // use weapon
                 if (fireCooldown <= 0)
@@ -45,6 +53,30 @@ namespace ReplayValue
 
             }
             fireCooldown -= Time.deltaTime;
+        }
+
+        private void GetWeapon()
+        {
+            if (weaponData == null)
+            {
+                Debug.LogError($"No Weapon Data given to {name}");
+                return;
+            }
+
+            baseDamage = weaponData.baseDamage;
+            fireRate = weaponData.fireRate;
+            attackRange = weaponData.attackRange;
+            var weapon = Instantiate(weaponData.weaponPrefab, transform);
+            UpdateAttackRange(attackRange);
+        }
+
+        private void PointWeaponAtTarget()
+        {
+            Vector2 dir = lockedUnit.transform.position - weaponHolder.transform.position;
+            dir.Normalize();
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            weaponHolder.transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
         private void UseWeapon()

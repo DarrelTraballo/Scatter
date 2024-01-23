@@ -7,8 +7,10 @@ namespace ReplayValue
     {
         [SerializeField] protected float moveSpeed = 5f;
         public float viewDistance = 20f;
+        [SerializeField] protected float attackRange;
 
         protected CircleCollider2D viewCollider;
+
         [HideInInspector] public Unit lockedUnit;
 
         [SerializeField] protected float totalHealth;
@@ -25,6 +27,7 @@ namespace ReplayValue
         protected Vector3 targetPos;
 
         protected GameObject selectedCircle;
+        protected GameObject viewDistSprite;
 
         public abstract void AttackUnit(Unit unit);
         public abstract void TakeDamage(float amount);
@@ -32,19 +35,13 @@ namespace ReplayValue
         protected virtual void Awake()
         {
             selectedCircle = transform.Find("Selected").gameObject;
-            SetSelectedVisible(false);
 
             healthBarCanvas.enabled = false;
             currentHealth = totalHealth;
 
-            if (transform.Find("ViewDistance").gameObject.TryGetComponent(out viewCollider))
-            {
-                viewCollider.radius = viewDistance;
-            }
-            else
-            {
-                Debug.LogError("CircleCollider2D component not found on the unit!");
-            }
+            UpdateViewDistance(viewDistance);
+            UpdateAttackRange(attackRange);
+            SetSelectedVisible(false);
         }
 
         protected virtual void Update()
@@ -66,6 +63,7 @@ namespace ReplayValue
         public void SetSelectedVisible(bool isVisible)
         {
             selectedCircle.SetActive(isVisible);
+            viewDistSprite.SetActive(isVisible);
         }
 
         protected bool CanUnitSeeTarget()
@@ -107,11 +105,31 @@ namespace ReplayValue
 
         protected void UpdateViewDistance(float newViewDistance)
         {
-            viewDistance = newViewDistance;
-            if (viewCollider != null)
+
+            GameObject viewDistanceGO = transform.Find("ViewDistance").gameObject;
+            viewDistSprite = viewDistanceGO.transform.Find("View Distance Sprite").gameObject;
+
+            if (viewDistanceGO.TryGetComponent(out viewCollider))
             {
-                viewCollider.radius = viewDistance;
+                viewCollider.radius = newViewDistance;
             }
+            else
+            {
+                Debug.LogError("CircleCollider2D component not found on the unit!");
+            }
+        }
+
+        protected void UpdateAttackRange(float newAttackRange)
+        {
+            if (viewDistSprite != null)
+            {
+                viewDistSprite.transform.localScale = new Vector2(newAttackRange, newAttackRange) * 2f;
+            }
+            else
+            {
+                Debug.LogError("No SpriteRenderer component found! D:");
+            }
+
         }
 
 #if UNITY_EDITOR

@@ -18,6 +18,8 @@ namespace ReplayValue
         public float minZoom;
         public float maxZoom;
 
+        [SerializeField] private bool isCameraLocked = false;
+
         private void Awake()
         {
             childCamera = transform.GetChild(0).GetComponent<Camera>();
@@ -25,10 +27,19 @@ namespace ReplayValue
 
         private void Update()
         {
-            HandleMouseInput();
+            HandleZoom();
+            if (!isCameraLocked)
+            {
+                MoveCamearaUsingScreenEdges();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                isCameraLocked = !isCameraLocked;
+            }
         }
 
-        private void HandleMouseInput()
+        private void HandleZoom()
         {
             // Zoom in and out using the mouse scroll wheel
             float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
@@ -37,7 +48,6 @@ namespace ReplayValue
             // Clamp the orthographic size within the specified limits
             childCamera.orthographicSize = Mathf.Clamp(childCamera.orthographicSize, minZoom, maxZoom);
 
-            MoveCamearaUsingScreenEdges();
         }
 
         private void MoveCamearaUsingScreenEdges()

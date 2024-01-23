@@ -41,6 +41,7 @@ namespace ReplayValue
             if (currentHealth <= 0)
             {
                 Debug.Log($"Killed {name}");
+                lockedUnit = null;
             }
         }
 

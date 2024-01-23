@@ -1,7 +1,7 @@
 # PirateSoftware GameJam 14
 ## Theme: It's Spreading
 
-## MVP:
+## Minimum Viable Product:
 ### Outside (RTS):
 - [ ] Units
     - [ ] Squad
@@ -14,8 +14,9 @@
         - [x] Attack Mechanic
             - View Distance
             - if Squad Unit enters view distance, zombie locks on to first Squad unit it sees
-        - [ ] Hoards
-            - A group of 4-5 zombies (numbers subject to balance)
+        - [ ] Spawner
+            - when do they spawn?
+            - how do they spawn?
 
 - [x] Camera Controller
 - [x] Fog Of War
@@ -23,12 +24,18 @@
 
 - [ ] Items
     - [ ] Weapons
-        - [ ] ScriptableObjects
+        - [x] ScriptableObjects
         - [ ] Guns
-            - [ ] Type1
-            - [ ] Type2
-            - [ ] Type3
-            - [ ] Type4
+            - [x] Types
+                - Pistol
+                    - Base, Mid fire rate, mid attack range, mid damage
+                - Assault Rifle
+                    - Fast fire rate, big attack range, good damage
+                - Shotgun
+                    - Slow fire rate, small attack range, big damage
+                - Knife
+                    - Mid fire rate, very small attack range, big damage
+            - [ ] Bullet/Indicator that they've fired
     - [ ] Survival Items
         - [ ] Scraps
             - [ ] needed for weapons
