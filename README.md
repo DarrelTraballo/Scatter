@@ -3,6 +3,8 @@
 
 ## Minimum Viable Product:
 ### Outside (RTS):
+- [x] Camera Controller
+
 - [ ] Units
     - [ ] Squad
         - [x] Squad Controller
@@ -17,10 +19,6 @@
         - [ ] Spawner
             - when do they spawn?
             - how do they spawn?
-
-- [x] Camera Controller
-- [x] Fog Of War
-    - [ ] Map Item Integration
 
 - [ ] Items
     - [ ] Weapons
@@ -38,7 +36,8 @@
             - [ ] Bullet/Indicator that they've fired
     - [ ] Survival Items
         - [ ] Scraps
-            - [ ] needed for weapons
+            - needed for weapons
+            - (or idk how are we getting weapons)
         - [ ] Food
         - [ ] Med Kit
         - [ ] Map
@@ -55,6 +54,9 @@
     - [ ] Zombies
         - [x] Health Bar
         - [x] Attacking Squad units increases their Infected % bar
+
+- [x] Fog Of War
+    - [ ] Map Item Integration
 
 - [ ] Day/Night Cycle
     - [ ] Fog Of War
