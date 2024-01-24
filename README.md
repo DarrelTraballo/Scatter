@@ -59,11 +59,30 @@
     - [ ] Map Item Integration
 
 - [ ] Day/Night Cycle
-    - [ ] Fog Of War
-        - [ ] Day
-            - something happens here
+    - [x] In-Game Clock and Day Counter
+    - [ ] What happens during xx:00 in game
+        - [ ] XX:00
+            - Spawn Zombies
+        - [ ] XX:00
+            - Somehow replenish resources
+        - [ ] XX:00
+            - Something
+        - [ ] XX:00
+            - Something
+        - [ ] XX:00
+            - Something
+    - [ ] What happens when day x comes?
+        - [ ] Day 1
+            - Something
+        - [ ] Day 2
+            - Something
+        - [ ] Day 3
+            - Something
+        - [ ] Day 4
+            - Something
 
-- [ ] UI and Menus
+- [ ] UI and Menus [JUST MAKE BASIC UI, IT'S JUST A GAME JAM XD]
+    - [x] In-Game Clock and Day Counter
     - [ ] xdd
 
 choice mechanic > have consequences
