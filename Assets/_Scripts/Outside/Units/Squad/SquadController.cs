@@ -14,10 +14,12 @@ namespace ReplayValue
 
         private Vector3 startPos;
         private List<SquadUnit> selectedSquadUnits;
+        private List<ZombieUnit> selectedZombieUnits;
 
         private void Awake()
         {
             selectedSquadUnits = new List<SquadUnit>();
+            selectedZombieUnits = new List<ZombieUnit>();
             selectionAreaTransform.gameObject.SetActive(false);
             clickIndicatorTransform.gameObject.SetActive(false);
         }
@@ -85,6 +87,7 @@ namespace ReplayValue
             {
                 if (hit.collider.TryGetComponent(out Unit selectedUnit))
                 {
+                    selectedUnit.SetSelectedVisible(true);
                     if (selectedUnit is SquadUnit squadUnit)
                     {
                         return squadUnit;
@@ -107,9 +110,16 @@ namespace ReplayValue
 
             foreach (var foundCollider in foundColliders)
             {
-                if (foundCollider.TryGetComponent(out SquadUnit unit))
+                if (foundCollider.TryGetComponent(out Unit unit))
                 {
-                    selectedSquadUnits.Add(unit);
+                    if (unit is SquadUnit squadUnit)
+                    {
+                        selectedSquadUnits.Add(squadUnit);
+                    }
+                    if (unit is ZombieUnit zombieUnit)
+                    {
+                        selectedZombieUnits.Add(zombieUnit);
+                    }
                     unit.SetSelectedVisible(true);
                 }
             }
@@ -121,9 +131,13 @@ namespace ReplayValue
 
             foreach (var unit in selectedSquadUnits)
             {
-                Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * circleRadius;
+                if (unit is SquadUnit squadUnit)
+                {
+                    Vector3 randomPos = targetPosition + new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0f) * circleRadius;
 
-                unit.SetTargetPosition(randomPos);
+                    squadUnit.SetTargetPosition(randomPos);
+                }
+                else continue;
             }
         }
 
@@ -149,12 +163,18 @@ namespace ReplayValue
 
         private void DeselectUnits()
         {
-            foreach (var unit in selectedSquadUnits)
+            foreach (var squadUnit in selectedSquadUnits)
             {
-                unit.SetSelectedVisible(false);
+                squadUnit.SetSelectedVisible(false);
+            }
+
+            foreach (var zombieUnit in selectedZombieUnits)
+            {
+                zombieUnit.SetSelectedVisible(false);
             }
 
             selectedSquadUnits.Clear();
+            selectedZombieUnits.Clear();
         }
 
         private IEnumerator ShowClick()

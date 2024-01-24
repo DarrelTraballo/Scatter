@@ -1,14 +1,32 @@
+using System.Collections;
 using UnityEngine;
 
 namespace ReplayValue
 {
     public class ZombieUnit : Unit
     {
+        private enum AIState { Roam, Chase }
+        [SerializeField] private AIState currentState;
+        private float roamRadius;
+
         [SerializeField] private float baseDamage;
+
+        private Coroutine roamCoroutine;
 
         protected override void Awake()
         {
             base.Awake();
+
+            roamRadius = viewDistance / 2f;
+            currentState = AIState.Roam;
+        }
+
+        private void Start()
+        {
+            if (currentState == AIState.Roam)
+            {
+                roamCoroutine = StartCoroutine(RoamCoroutine());
+            }
         }
 
         protected override void Update()
@@ -17,12 +35,50 @@ namespace ReplayValue
 
             if (lockedUnit == null)
             {
-                shouldMove = false;
+                currentState = AIState.Roam;
+                if (!IsInvoking("RoamCoroutine"))
+                {
+                    roamCoroutine = StartCoroutine(RoamCoroutine());
+                }
                 return;
             }
+            else
+            {
+                SetTargetPosition(lockedUnit.transform.position);
+                currentState = AIState.Chase;
+                shouldMove = CanUnitSeeTarget();
+                StopCoroutine(roamCoroutine);
+            }
 
-            SetTargetPosition(lockedUnit.transform.position);
-            shouldMove = CanUnitSeeTarget();
+        }
+
+        private IEnumerator RoamCoroutine()
+        {
+            while (true)
+            {
+                // Generate a random point within a circle of radius 'roamRadius'
+                Vector2 randomPoint = Random.insideUnitCircle * roamRadius;
+
+                // Convert the 2D point to a 3D point
+                targetPos = transform.position + (Vector3)randomPoint;
+
+                SetTargetPosition(targetPos);
+
+                // Wait until the zombie reaches the target position
+                yield return new WaitUntil(() => (targetPos - transform.position).sqrMagnitude <= 0.01f);
+            }
+        }
+
+        private void Roam()
+        {
+            SetTargetPosition(targetPos);
+        }
+
+        private void SetNextRoamTargetPosition()
+        {
+            Vector2 randomPoint = Random.insideUnitCircle * roamRadius;
+            targetPos = transform.position + new Vector3(randomPoint.x, randomPoint.y);
+
         }
 
         public override void AttackUnit(Unit squadUnit)
@@ -51,6 +107,7 @@ namespace ReplayValue
             {
                 if (other.TryGetComponent(out SquadUnit squadUnit))
                 {
+                    currentState = AIState.Chase;
                     lockedUnit = squadUnit;
                 }
             }

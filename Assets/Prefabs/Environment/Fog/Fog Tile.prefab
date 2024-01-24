@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3780610284238551855}
   - component: {fileID: 6691111821035717816}
   - component: {fileID: 6715264264695905853}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fog Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4545404199044162731}
   - component: {fileID: 8988361933796186775}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
