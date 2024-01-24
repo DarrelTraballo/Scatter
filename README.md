@@ -8,9 +8,14 @@
 - [ ] Units
     - [ ] Squad
         - [x] Squad Controller
-        - [x] Attack Mechanic
-            - when click on an enemy unit, selected units head towards selected enemy unit and attacks
         - [ ] Squad AI
+            - [x] Attack Mechanic
+                - when right click on an enemy unit, selected units head towards selected enemy unit and attacks
+            - [ ] Gather Resources
+                - When right click on a resource, selected unit/s(?) head towards resource
+                - different collecting times depending on resource
+        - [ ] can find some survivors hiding in buildings
+
     - [ ] Zombies
         - [x] Zombie AI
         - [x] Attack Mechanic
@@ -37,7 +42,8 @@
     - [ ] Survival Items
         - [ ] Scraps
             - needed for weapons
-            - (or idk how are we getting weapons)
+            - only one type
+            - [Weapon] needs X Scraps to be crafted, something like that
         - [ ] Food
         - [ ] Med Kit
         - [ ] Map
