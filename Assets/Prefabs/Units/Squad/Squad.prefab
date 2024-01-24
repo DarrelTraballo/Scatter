@@ -207,3 +207,4 @@ MonoBehaviour:
   fireRate: 2
   fireCooldown: 0
   weaponData: {fileID: 0}
+  defaultWeapon: {fileID: 11400000, guid: be3c9e0e7dd1975438fe982f20bb9dd8, type: 2}

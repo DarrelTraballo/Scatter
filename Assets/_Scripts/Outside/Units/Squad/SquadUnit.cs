@@ -15,6 +15,7 @@ namespace ReplayValue
         [SerializeField] private float fireCooldown = 0f;
 
         [SerializeField] private WeaponData weaponData;
+        [SerializeField] private WeaponData defaultWeapon;
         protected GameObject weaponHolder;
 
         // TODO: weapon projectiles
@@ -59,8 +60,7 @@ namespace ReplayValue
         {
             if (weaponData == null)
             {
-                Debug.LogError($"No Weapon Data given to {name}");
-                return;
+                weaponData = defaultWeapon;
             }
 
             baseDamage = weaponData.baseDamage;

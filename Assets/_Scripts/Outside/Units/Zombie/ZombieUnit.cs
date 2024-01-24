@@ -5,7 +5,7 @@ namespace ReplayValue
 {
     public class ZombieUnit : Unit
     {
-        private enum AIState { Roam, Chase }
+        private enum AIState { Roam, Chase, Dead }
         [SerializeField] private AIState currentState;
         private float roamRadius;
 
@@ -21,25 +21,19 @@ namespace ReplayValue
             currentState = AIState.Roam;
         }
 
-        private void Start()
-        {
-            if (currentState == AIState.Roam)
-            {
-                roamCoroutine = StartCoroutine(RoamCoroutine());
-            }
-        }
-
         protected override void Update()
         {
             base.Update();
 
             if (lockedUnit == null)
             {
-                currentState = AIState.Roam;
-                if (!IsInvoking("RoamCoroutine"))
+                if (currentState == AIState.Dead)
                 {
-                    roamCoroutine = StartCoroutine(RoamCoroutine());
+                    return;
                 }
+
+                currentState = AIState.Roam;
+                Roam();
                 return;
             }
             else
@@ -47,38 +41,19 @@ namespace ReplayValue
                 SetTargetPosition(lockedUnit.transform.position);
                 currentState = AIState.Chase;
                 shouldMove = CanUnitSeeTarget();
-                StopCoroutine(roamCoroutine);
             }
 
-        }
-
-        private IEnumerator RoamCoroutine()
-        {
-            while (true)
-            {
-                // Generate a random point within a circle of radius 'roamRadius'
-                Vector2 randomPoint = Random.insideUnitCircle * roamRadius;
-
-                // Convert the 2D point to a 3D point
-                targetPos = transform.position + (Vector3)randomPoint;
-
-                SetTargetPosition(targetPos);
-
-                // Wait until the zombie reaches the target position
-                yield return new WaitUntil(() => (targetPos - transform.position).sqrMagnitude <= 0.01f);
-            }
         }
 
         private void Roam()
         {
-            SetTargetPosition(targetPos);
-        }
-
-        private void SetNextRoamTargetPosition()
-        {
+            // Generate a random point within a circle of radius 'roamRadius'
             Vector2 randomPoint = Random.insideUnitCircle * roamRadius;
-            targetPos = transform.position + new Vector3(randomPoint.x, randomPoint.y);
 
+            // Convert the 2D point to a 3D point
+            targetPos = transform.position + (Vector3)randomPoint;
+
+            SetTargetPosition(targetPos);
         }
 
         public override void AttackUnit(Unit squadUnit)
@@ -97,13 +72,14 @@ namespace ReplayValue
             if (currentHealth <= 0)
             {
                 Debug.Log($"Killed {name}");
+                currentState = AIState.Dead;
                 lockedUnit = null;
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (lockedUnit == null)
+            if (lockedUnit == null && currentState != AIState.Dead)
             {
                 if (other.TryGetComponent(out SquadUnit squadUnit))
                 {
