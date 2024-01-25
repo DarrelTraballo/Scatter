@@ -129,7 +129,11 @@ namespace ReplayValue
             {
                 Debug.LogError("No SpriteRenderer component found! D:");
             }
+        }
 
+        protected void Die()
+        {
+            ObjectPooler.Instance.ReleaseObject(gameObject);
         }
 
 #if UNITY_EDITOR

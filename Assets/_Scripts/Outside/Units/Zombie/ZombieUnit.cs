@@ -74,6 +74,7 @@ namespace ReplayValue
                 Debug.Log($"Killed {name}");
                 currentState = AIState.Dead;
                 lockedUnit = null;
+                Die();
             }
         }
 
