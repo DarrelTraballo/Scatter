@@ -63,6 +63,10 @@ namespace ReplayValue
                         pooledObjects.Add(obj);
                         return obj;
                     }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             return null;

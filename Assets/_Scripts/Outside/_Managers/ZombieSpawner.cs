@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ReplayValue
 {
 
-    public class Spawner : MonoBehaviour
+    public class ZombieSpawner : MonoBehaviour
     {
         [SerializeField] private Transform groundPlaneTransform;
         [SerializeField] private int amountToSpawn;
@@ -17,10 +17,13 @@ namespace ReplayValue
         {
             for (var i = 0; i < amountToSpawn; i++)
             {
-                float boundsX = groundPlaneTransform.localScale.x / 2;
-                float boundsY = groundPlaneTransform.localScale.y / 2;
+                float maxBoundsX = groundPlaneTransform.localScale.x / 2;
+                float maxBoundsY = groundPlaneTransform.localScale.y / 2;
 
-                Vector2 spawnPos = new Vector2(Random.Range(-boundsX, boundsX), Random.Range(-boundsY, boundsY));
+                float randomX = Random.Range(-maxBoundsX + 75, maxBoundsX - 75);
+                float randomY = Random.Range(-maxBoundsY + 75, maxBoundsY - 75);
+
+                Vector2 spawnPos = new Vector2(randomX, randomY);
 
                 var spawnedObject = ObjectPooler.Instance.GetPooledObject(tag);
 
