@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ddd2d358b9b4344af94f9ba07d4ea5, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  resourceName: Rock
+  resourceTypes: 0000000001000000
+  sprites:
+  - {fileID: 21300000, guid: 5097d2d4715ea114a871be32cc1d2e4b, type: 3}
+  - {fileID: 21300000, guid: 7d0f9792699e67f41b6356fc9120e499, type: 3}
+  - {fileID: 21300000, guid: 594830a2d94176249a10f72986d6a4e3, type: 3}
+  - {fileID: 21300000, guid: 928fa3b6ac09bc94d8c8572f44c2734c, type: 3}
+  - {fileID: 21300000, guid: 7d901509239d1cb4eb83dfe1899f359c, type: 3}
+  - {fileID: 21300000, guid: c3d93ea68bca4e94bbfd6f0c0081f97d, type: 3}
+  - {fileID: 21300000, guid: aed083d761b378c4cbcdf78e7b7c1e44, type: 3}
+  - {fileID: 21300000, guid: 50737d5a8fea79e4a891f3c21c83a91e, type: 3}
+  - {fileID: 21300000, guid: 59ae92698e7161944a5f23199b09fc70, type: 3}
+  - {fileID: 21300000, guid: 7a4a075a40f35894cb0805c6b93cdae6, type: 3}
+  - {fileID: 21300000, guid: 776764e4fb78f9941a98f7b8781b2b92, type: 3}
+  - {fileID: 21300000, guid: a9fbb3e0728698049ae2a375b8054159, type: 3}
+  minResourceHealth: 75
+  maxResourceHealth: 100
+  minAmount: 3
+  maxAmount: 5

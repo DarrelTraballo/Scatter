@@ -9,11 +9,11 @@ namespace ReplayValue
     {
         public EventHandler<TimeSpan> WorldTimeChanged;
 
-        [SerializeField] private float dayLength;
+        [SerializeField] private float dayLengthInMinutes;
 
         private TimeSpan currentTime;
         public int currentDay = 1;
-        private float MinuteLength => dayLength / 60;
+        private float MinuteLength => dayLengthInMinutes / 60;
 
         private void Start()
         {
@@ -26,10 +26,10 @@ namespace ReplayValue
             WorldTimeChanged?.Invoke(this, currentTime);
             yield return new WaitForSeconds(MinuteLength);
 
-            if (currentTime.TotalDays % dayLength == 0)
+            if (currentTime.TotalDays % dayLengthInMinutes == 0)
             {
                 Debug.Log($"Day Incremented at {currentTime}");
-                currentDay++;
+                GameManager.currentDay++;
             }
 
             StartCoroutine(AddMinute());

@@ -27,7 +27,7 @@ namespace ReplayValue
         {
             // text.SetText(newTime.ToString(@"hh\:mm"));
             string timeString = newTime.ToString(@"hh\:") + "00\n"
-                            + $"Day {worldTime.currentDay}";
+                            + $"Day {GameManager.currentDay}";
 
             text.SetText(timeString);
         }

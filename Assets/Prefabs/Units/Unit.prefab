@@ -223,7 +223,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 138933345
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5615358682828159032}
+  - component: {fileID: -8893598198616693547}
   - component: {fileID: 6029478203160784129}
   - component: {fileID: 1399903506264009752}
   m_Layer: 8
@@ -273,6 +274,46 @@ Transform:
   - {fileID: 601902031121334700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8893598198616693547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494144587447345559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c489c911656780b4eb4352cfba20b6da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSprites:
+  - stateName: Idle
+    animationSprites:
+    - {fileID: 1693058468, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+    - {fileID: -613624127, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+    - {fileID: 1074643858, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+    - {fileID: -570379747, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+    - {fileID: 551496314, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+    - {fileID: -671685083, guid: 0b77777b542cd404aa6124c66ff115d4, type: 3}
+  - stateName: Running
+    animationSprites:
+    - {fileID: -2039708323, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: 1045490704, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: -1619154461, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: -241962211, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: -1719214895, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: 1920909974, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: 445304893, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+    - {fileID: -505792753, guid: d7c426460d2e70b42b9e4b6fa7bb3386, type: 3}
+  - stateName: Dying
+    animationSprites:
+    - {fileID: -1181456679, guid: 5bf6c697e4be9ed46bedb7aa63d8c133, type: 3}
+    - {fileID: -1815205203, guid: 5bf6c697e4be9ed46bedb7aa63d8c133, type: 3}
+    - {fileID: 531978472, guid: 5bf6c697e4be9ed46bedb7aa63d8c133, type: 3}
+    - {fileID: -253481333, guid: 5bf6c697e4be9ed46bedb7aa63d8c133, type: 3}
+  currentState: 
+  animationTime: 0.25
+  shouldLoop: 1
 --- !u!61 &6029478203160784129
 BoxCollider2D:
   m_ObjectHideFlags: 0

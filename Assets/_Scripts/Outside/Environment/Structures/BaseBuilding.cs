@@ -10,6 +10,14 @@ namespace ReplayValue
         public float ViewDistance => viewDistance;
         public Vector3 Position => transform.position;
 
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+            }
+        }
+
         private void OnEnable()
         {
             StartCoroutine(WaitForSingleton());

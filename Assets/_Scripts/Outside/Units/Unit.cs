@@ -29,12 +29,17 @@ namespace ReplayValue
         protected GameObject selectedCircle;
         protected GameObject viewDistSprite;
 
+        protected AnimatedSpriteRenderer animatedSpriteRenderer;
+
+        protected GameManager gameManager;
+
         public abstract void AttackUnit(Unit unit);
         public abstract void TakeDamage(float amount);
 
         protected virtual void Awake()
         {
             selectedCircle = transform.Find("Selected").gameObject;
+            animatedSpriteRenderer = GetComponent<AnimatedSpriteRenderer>();
 
             healthBarCanvas.enabled = false;
             currentHealth = totalHealth;
@@ -42,11 +47,22 @@ namespace ReplayValue
             UpdateViewDistance(viewDistance);
             UpdateAttackRange(attackRange);
             SetSelectedVisible(false);
+
+            animatedSpriteRenderer.ChangeState("Idle");
+        }
+
+        protected virtual void Start()
+        {
+            gameManager = GameManager.Instance;
         }
 
         protected virtual void Update()
         {
-            if (shouldMove) MoveTo(targetPos);
+            if (shouldMove)
+            {
+                animatedSpriteRenderer.ChangeState("Running");
+                MoveTo(targetPos);
+            }
         }
 
         public virtual void SetTargetPosition(Vector3 newTargetPos)

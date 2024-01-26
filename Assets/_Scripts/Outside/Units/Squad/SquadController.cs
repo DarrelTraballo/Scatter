@@ -16,12 +16,19 @@ namespace ReplayValue
         private List<SquadUnit> selectedSquadUnits;
         private List<ZombieUnit> selectedZombieUnits;
 
+        private GameManager gameManager;
+
         private void Awake()
         {
             selectedSquadUnits = new List<SquadUnit>();
             selectedZombieUnits = new List<ZombieUnit>();
             selectionAreaTransform.gameObject.SetActive(false);
             clickIndicatorTransform.gameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+            gameManager = GameManager.Instance;
         }
 
         private void Update()
@@ -47,10 +54,10 @@ namespace ReplayValue
                 StartCoroutine(ShowClick());
 
                 Unit selectedUnit = SelectUnit();
+                Resource selectedResource = SelectResource();
+
                 if (selectedUnit != null)
                 {
-                    Debug.Log($"Clicked {selectedUnit.name}");
-
                     if (selectedUnit is ZombieUnit zombie)
                     {
                         foreach (var unit in selectedSquadUnits)
@@ -58,12 +65,27 @@ namespace ReplayValue
                             unit.AttackUnit(zombie);
                         }
                     }
+                    if (selectedUnit is SquadUnit squad)
+                    {
+                        squad.SetSelectedVisible(true);
+                        selectedSquadUnits.Add(squad);
+                        AddToActiveSquadUnitsList(squad);
+                    }
                 }
+                else if (selectedResource != null)
+                {
+                    foreach (var unit in selectedSquadUnits)
+                    {
+                        unit.CollectResource(selectedResource);
+                    }
+                }
+
                 else
                 {
                     foreach (var unit in selectedSquadUnits)
                     {
                         unit.lockedUnit = null;
+                        unit.lockedResource = null;
                     }
 
                     HandleUnitMovement();
@@ -73,6 +95,12 @@ namespace ReplayValue
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 DeselectUnits();
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                Debug.Log($"current active Squad Members count : {gameManager.activeSquadUnits.Count}\n" +
+                          $"current infected Squad Members count : {gameManager.infectedSquadUnits.Count}");
             }
         }
 
@@ -103,6 +131,22 @@ namespace ReplayValue
             return null;
         }
 
+        private Resource SelectResource()
+        {
+            Vector3 mousePos = UtilsClass.GetMouseWorldPosition();
+            int layerMask = LayerMask.GetMask("Resource", "Object");
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, layerMask);
+
+            if (hit.collider == null) return null;
+
+            if (hit.collider.TryGetComponent(out Resource selectedResource))
+            {
+                return selectedResource;
+            }
+
+            return null;
+        }
+
         private void SelectMultipleUnits()
         {
             Collider2D[] foundColliders = Physics2D.OverlapAreaAll(startPos, UtilsClass.GetMouseWorldPosition());
@@ -115,6 +159,7 @@ namespace ReplayValue
                     if (unit is SquadUnit squadUnit)
                     {
                         selectedSquadUnits.Add(squadUnit);
+                        AddToActiveSquadUnitsList(squadUnit);
                     }
                     if (unit is ZombieUnit zombieUnit)
                     {
@@ -159,6 +204,14 @@ namespace ReplayValue
             selectionAreaTransform.position = lowerLeft;
 
             selectionAreaTransform.localScale = upperRight - lowerLeft;
+        }
+
+        private void AddToActiveSquadUnitsList(SquadUnit squadUnit)
+        {
+            if (!gameManager.activeSquadUnits.Contains(squadUnit))
+            {
+                gameManager.activeSquadUnits.Add(squadUnit);
+            }
         }
 
         private void DeselectUnits()

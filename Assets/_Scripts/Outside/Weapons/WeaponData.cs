@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ReplayValue
 {
-    [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
+    [CreateAssetMenu(fileName = "New Weapon", menuName = "Scriptable Object/Weapon")]
     public class WeaponData : ScriptableObject
     {
         public string weaponName;

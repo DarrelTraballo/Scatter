@@ -13,7 +13,7 @@ namespace ReplayValue
 
         public void SetVisible(bool isVisible)
         {
-            gameObject.transform.Find("Tile").gameObject.SetActive(!isVisible);
+            gameObject.transform.Find("Tile").gameObject.SetActive(isVisible);
         }
     }
 }

@@ -11,8 +11,6 @@ namespace ReplayValue
 
         [SerializeField] private float baseDamage;
 
-        private Coroutine roamCoroutine;
-
         protected override void Awake()
         {
             base.Awake();

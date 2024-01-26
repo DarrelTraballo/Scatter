@@ -67,10 +67,13 @@ namespace ReplayValue
 
         private void UpdateFog()
         {
-            foreach (var fogTile in fogTiles)
-            {
-                fogTile.SetVisible(false);
-            }
+            // TODO: for now, fogtiles will never go back on
+            //       but this should only happen if the squad has found a map item or something
+
+            // foreach (var fogTile in fogTiles)
+            // {
+            //     fogTile.SetVisible(true);
+            // }
 
             foreach (var revealer in fogRevealers)
             {
@@ -79,7 +82,7 @@ namespace ReplayValue
                     float distance = Vector3.Distance(revealer.Position, fogTile.transform.position);
                     if (distance <= revealer.ViewDistance)
                     {
-                        fogTile.SetVisible(true);
+                        fogTile.SetVisible(false);
                     }
                 }
             }

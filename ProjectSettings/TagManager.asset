@@ -8,6 +8,10 @@ TagManager:
   - Squad
   - Zombie
   - ViewDistance
+  - Resource
+  - Object
+  - Med Kit
+  - Rock
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - Object
   - Building
   - Fog
-  - 
+  - Resource
   - 
   - 
   - 
@@ -53,6 +57,9 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 482340183
+    locked: 0
+  - name: Resources
+    uniqueID: 3506265423
     locked: 0
   - name: Units
     uniqueID: 138933345

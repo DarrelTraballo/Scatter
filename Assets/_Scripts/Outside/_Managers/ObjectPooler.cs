@@ -6,7 +6,8 @@ namespace ReplayValue
     [System.Serializable]
     public class ObjectPoolItem
     {
-        public GameObject objectToPool;
+        public string poolItemName;
+        public GameObject[] objectsToPool;
         public int amountToPool;
         public Transform poolParent;
         public bool shouldExpand;
@@ -35,7 +36,7 @@ namespace ReplayValue
             {
                 for (var i = 0; i < item.amountToPool; i++)
                 {
-                    GameObject obj = Instantiate(item.objectToPool, item.poolParent);
+                    GameObject obj = Instantiate(item.objectsToPool[Random.Range(0, item.objectsToPool.Length)], item.poolParent);
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                 }
@@ -54,18 +55,21 @@ namespace ReplayValue
 
             foreach (var item in itemsToPool)
             {
-                if (item.objectToPool.CompareTag(tag))
+                foreach (var objToPool in item.objectsToPool)
                 {
-                    if (item.shouldExpand)
+                    if (objToPool.CompareTag(tag))
                     {
-                        GameObject obj = Instantiate(item.objectToPool, item.poolParent);
-                        obj.SetActive(false);
-                        pooledObjects.Add(obj);
-                        return obj;
-                    }
-                    else
-                    {
-                        return null;
+                        if (item.shouldExpand)
+                        {
+                            GameObject obj = Instantiate(item.objectsToPool[Random.Range(0, item.objectsToPool.Length)], item.poolParent);
+                            obj.SetActive(false);
+                            pooledObjects.Add(obj);
+                            return obj;
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
                 }
             }
