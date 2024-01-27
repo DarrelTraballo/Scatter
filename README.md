@@ -1,5 +1,9 @@
 # PirateSoftware GameJam 14
-## Theme: It's Spreading
+## Scatter
+### Theme: It's Spreading
+
+# Prototype released on Itch!
+https://squeegeexd.itch.io/scatter
 
 ## Minimum Viable Product:
 ### Outside (RTS):
