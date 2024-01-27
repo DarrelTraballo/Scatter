@@ -33,6 +33,8 @@ namespace ReplayValue
 
         private void Update()
         {
+            if (GameManager.Instance.state == GameManager.GameState.MainMenu || GameManager.Instance.state == GameManager.GameState.GameOver) return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 startPos = UtilsClass.GetMouseWorldPosition();
@@ -69,7 +71,7 @@ namespace ReplayValue
                     {
                         squad.SetSelectedVisible(true);
                         selectedSquadUnits.Add(squad);
-                        AddToActiveSquadUnitsList(squad);
+                        GameManager.AddSquadUnit(squad);
                     }
                 }
                 else if (selectedResource != null)
@@ -99,8 +101,8 @@ namespace ReplayValue
 
             if (Input.GetMouseButtonDown(2))
             {
-                Debug.Log($"current active Squad Members count : {gameManager.activeSquadUnits.Count}\n" +
-                          $"current infected Squad Members count : {gameManager.infectedSquadUnits.Count}");
+                Debug.Log($"current active Squad Members count : {GameManager.GetActiveSquadUnitsCount()}\n" +
+                          $"current infected Squad Members count : {GameManager.GetInfectedSquadUnitsCount()}");
             }
         }
 
@@ -159,7 +161,7 @@ namespace ReplayValue
                     if (unit is SquadUnit squadUnit)
                     {
                         selectedSquadUnits.Add(squadUnit);
-                        AddToActiveSquadUnitsList(squadUnit);
+                        GameManager.AddSquadUnit(squadUnit);
                     }
                     if (unit is ZombieUnit zombieUnit)
                     {
@@ -204,14 +206,6 @@ namespace ReplayValue
             selectionAreaTransform.position = lowerLeft;
 
             selectionAreaTransform.localScale = upperRight - lowerLeft;
-        }
-
-        private void AddToActiveSquadUnitsList(SquadUnit squadUnit)
-        {
-            if (!gameManager.activeSquadUnits.Contains(squadUnit))
-            {
-                gameManager.activeSquadUnits.Add(squadUnit);
-            }
         }
 
         private void DeselectUnits()

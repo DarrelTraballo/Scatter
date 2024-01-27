@@ -27,6 +27,8 @@ namespace ReplayValue
 
         private void Update()
         {
+            if (GameManager.Instance.state == GameManager.GameState.MainMenu || GameManager.Instance.state == GameManager.GameState.GameOver) return;
+
             HandleZoom();
             if (!isCameraLocked)
             {

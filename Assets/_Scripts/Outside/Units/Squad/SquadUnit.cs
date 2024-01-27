@@ -8,7 +8,7 @@ namespace ReplayValue
         public float ViewDistance => viewDistance;
         public Vector3 Position => transform.position;
 
-        [SerializeField] private WeaponData weaponData;
+        public WeaponData weaponData;
         [SerializeField] private WeaponData defaultWeapon;
         protected GameObject weaponHolder;
 
@@ -44,7 +44,7 @@ namespace ReplayValue
             Collect();
         }
 
-        private void GetWeapon()
+        public void GetWeapon()
         {
             if (weaponData == null)
             {
@@ -110,9 +110,27 @@ namespace ReplayValue
             if (currentHealth >= totalHealth)
             {
                 Debug.Log($"{name} got fully infected");
-                if (!gameManager.infectedSquadUnits.Contains(this))
-                    gameManager.infectedSquadUnits.Add(this);
+                GameManager.AddInfectedSquadUnit(this);
             }
+        }
+
+        public bool Heal(float amount)
+        {
+            if (currentHealth > 0)
+            {
+                healthBarCanvas.enabled = true;
+                currentHealth -= amount;
+
+                healthBar.fillAmount = currentHealth / totalHealth;
+
+                if (currentHealth <= 0)
+                {
+                    Debug.Log($"{name} got fully healed");
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
 
         private void Collect()

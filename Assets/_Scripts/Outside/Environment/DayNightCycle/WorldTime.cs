@@ -15,12 +15,7 @@ namespace ReplayValue
         public int currentDay = 1;
         private float MinuteLength => dayLengthInMinutes / 60;
 
-        private void Start()
-        {
-            StartCoroutine(AddMinute());
-        }
-
-        private IEnumerator AddMinute()
+        public IEnumerator AddMinute()
         {
             currentTime += TimeSpan.FromMinutes(1);
             WorldTimeChanged?.Invoke(this, currentTime);

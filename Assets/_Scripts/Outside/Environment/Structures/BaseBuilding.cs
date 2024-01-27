@@ -1,4 +1,5 @@
 using System.Collections;
+using CodeMonkey.Utils;
 using UnityEngine;
 
 namespace ReplayValue
@@ -10,11 +11,13 @@ namespace ReplayValue
         public float ViewDistance => viewDistance;
         public Vector3 Position => transform.position;
 
+        public GameObject squadUI;
+
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-
+                squadUI.SetActive(true);
             }
         }
 

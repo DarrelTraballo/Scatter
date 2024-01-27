@@ -38,8 +38,8 @@ namespace ReplayValue
 
         private void GenerateFog()
         {
-            float cellSizeX = groundPlaneTransform.localScale.x / fogGridSize;
-            float cellSizeY = groundPlaneTransform.localScale.y / fogGridSize;
+            float cellSizeX = (groundPlaneTransform.localScale.x + 10) / fogGridSize;
+            float cellSizeY = (groundPlaneTransform.localScale.y + 10) / fogGridSize;
 
 
             for (var x = 0; x < fogGridSize; x++)

@@ -58,6 +58,8 @@ namespace ReplayValue
 
         protected virtual void Update()
         {
+            if (GameManager.Instance.state == GameManager.GameState.MainMenu || GameManager.Instance.state == GameManager.GameState.GameOver) return;
+
             if (shouldMove)
             {
                 animatedSpriteRenderer.ChangeState("Running");

@@ -10,6 +10,8 @@ namespace ReplayValue
 
         public void Spawn(string tag)
         {
+            if (GameManager.Instance.state == GameManager.GameState.MainMenu || GameManager.Instance.state == GameManager.GameState.GameOver) return;
+
             for (var i = 0; i < amountToSpawn; i++)
             {
                 float maxBoundsX = groundPlaneTransform.localScale.x / 2;
