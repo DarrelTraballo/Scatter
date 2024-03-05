@@ -4,11 +4,9 @@
 
 # Prototype released on Itch!
 https://squeegeexd.itch.io/scatter
-
-## Minimum Viable Product:
-
 [Game Design Document](https://docs.google.com/document/d/1wpcIYkfl4O38VU8VeyIfv-zqpoTkQRyp5bB734wpUHA/edit?usp=sharing)
 
+## Minimum Viable Product:
 ### Outside (RTS):
 - [x] Camera Controller
 
