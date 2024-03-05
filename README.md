@@ -6,6 +6,9 @@
 https://squeegeexd.itch.io/scatter
 
 ## Minimum Viable Product:
+
+[Game Design Document](https://docs.google.com/document/d/1wpcIYkfl4O38VU8VeyIfv-zqpoTkQRyp5bB734wpUHA/edit?usp=sharing)
+
 ### Outside (RTS):
 - [x] Camera Controller
 
@@ -94,28 +97,6 @@ https://squeegeexd.itch.io/scatter
 - [ ] UI and Menus [JUST MAKE BASIC UI, IT'S JUST A GAME JAM XD]
     - [x] In-Game Clock and Day Counter
     - [ ] xdd
-
-choice mechanic > have consequences
-can choose to pick scraps, kits, ingredients for food without going outside for shooter > risk of getting infected
-
-3rd person shooter:
-normal zombie-esque shooter
-mechanic: need scraps for weapon > if no scraps then no weapons
-
-looting:
-radio, med kit etc.,
-
-infect:
-% chance of getting infected
-% chance of healing
-let outside > die
-
-resource:
-radio > can communicate to other living humans > trade mechanic
-map > have access on parts of the map without travelling to unacessed location
-flashlight > if going outside during night time have vision on place else fog of war
-some food are poisonous due to infection rate > can die due to food poisoning
-some med kits are ineffective/anomalies
 
 day time cycle: night and day per 10 minutes
 
